@@ -16,6 +16,7 @@ public class CalendarManager {
     }
 
 
+
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {
@@ -41,8 +42,8 @@ public class CalendarManager {
         return result;
     }
 
-
-
+//
+//
 //    public boolean conflit(Event e1, Event e2) {
 //        LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.dureeMinutes);
 //        LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.dureeMinutes);
