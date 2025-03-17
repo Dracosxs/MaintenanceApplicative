@@ -3,7 +3,7 @@ import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-
+//commit début de séance
 public class Main {
     public static void main(String[] args) {
         CalendarManager calendar = new CalendarManager();
