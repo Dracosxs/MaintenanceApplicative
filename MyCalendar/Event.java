@@ -1,36 +1,50 @@
-import java.time.LocalDateTime;
+import elementEvenement.*;
 
-public class Event {
-    public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
-    public String title;
-    public String proprietaire;
-    public LocalDateTime dateDebut;
-    public int dureeMinutes;
-    public String lieu; // utilisé seulement pour REUNION
-    public String participants; // séparés par virgules (pour REUNION uniquement)
-    public int frequenceJours; // uniquement pour PERIODIQUE
 
-    public Event(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                 String lieu, String participants, int frequenceJours) {
-        this.type = type;
-        this.title = title;
+public abstract class Event {
+    protected TitreEvenement title;
+    protected String proprietaire;
+    protected DateEvenement dateDebut;
+    protected DureeEvenement dureeMinutes;
+    protected LieuEvenement lieu; // Utilisé uniquement pour les réunions
+    protected Participants participants; // Utilisé uniquement pour les réunions
+    protected int frequenceJours; // Utilisé uniquement pour les événements périodiques
+
+    public Event(TitreEvenement titre, String proprietaire, DateEvenement dateDebut, DureeEvenement dureeMinutes) {
+        this.title = titre;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
         this.dureeMinutes = dureeMinutes;
-        this.lieu = lieu;
-        this.participants = participants;
-        this.frequenceJours = frequenceJours;
     }
 
-    public String description() {
-        String desc = "";
-        if (type.equals("RDV_PERSONNEL")) {
-            desc = "RDV : " + title + " à " + dateDebut.toString();
-        } else if (type.equals("REUNION")) {
-            desc = "Réunion : " + title + " à " + lieu + " avec " + participants;
-        } else if (type.equals("PERIODIQUE")) {
-            desc = "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
-        }
-        return desc;
+    public abstract String description();
+
+    public TitreEvenement getTitle() {
+        return title;
+    }
+
+    public String getProprietaire() {
+        return proprietaire;
+    }
+
+    public DateEvenement getDateDebut() {
+        return dateDebut;
+    }
+
+    public DureeEvenement getDureeMinutes() {
+        return dureeMinutes;
+    }
+
+    public LieuEvenement getLieu() {
+        return lieu;
+    }
+
+    public Participants getParticipants() {
+        return participants;
+    }
+
+    protected int frequenceJours() {
+        return frequenceJours;
     }
 }
+
