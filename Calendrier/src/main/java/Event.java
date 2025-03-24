@@ -14,6 +14,8 @@ public abstract class Event {
     protected Proprietaire proprietaire;
     protected FrequenceEvenement frequence;
 
+
+
     public Event(TitreEvenement titre, Proprietaire proprietaire, DateEvenement dateDebut, DureeEvenement dureeMinutes) {
         this.title = titre;
         this.proprietaire =  proprietaire;
@@ -53,5 +55,7 @@ public abstract class Event {
     protected FrequenceEvenement getFrequence() {
         return frequence;
     }
+
+
 }
 
