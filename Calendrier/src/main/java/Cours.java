@@ -33,4 +33,24 @@ public class Cours extends Event {
         return "Cours : " + matiere.valeur() + " avec " + enseignant.nom() + " en salle " + salle.valeur();
     }
 
+    @Override
+    public boolean conflitAvec(Event autre) {
+        return false;
+    }
+
+    @Override
+    public boolean conflitAvecRendezVous(RendezVous rdv) {
+        return false;
+    }
+
+    @Override
+    public boolean conflitAvecReunion(Reunion reunion) {
+        return false;
+    }
+
+    @Override
+    public boolean conflitAvecEvenementPeriodique(EvenementPeriodique periodique) {
+        return false;
+    }
+
 }
