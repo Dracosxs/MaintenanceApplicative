@@ -2,6 +2,7 @@ import elementEvenement.*;
 
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -180,7 +181,7 @@ public class Main {
 
                         calendar.ajouterEvent(new RendezVous(
                                 new TitreEvenement(titre),
-                                utilisateur,
+                                new Proprietaire(utilisateur),
                                 new DateEvenement(LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute)),
                                 new DureeEvenement(duree)
                         ));
@@ -207,23 +208,34 @@ public class Main {
                         System.out.println("Lieu :");
                         String lieu = scanner.nextLine();
 
-                        StringBuilder participants = new StringBuilder(utilisateur);
+                        List<String> nomsParticipants = new ArrayList<>();
+                        nomsParticipants.add(utilisateur);
 
-                        boolean encore = true;
                         System.out.println("Ajouter un participant ? (oui / non)");
-                        while (scanner.nextLine().equals("oui")) {
-                            System.out.print("Participants : " + participants);
-                            participants.append(", ").append(scanner.nextLine());
+                        while (scanner.nextLine().trim().equalsIgnoreCase("oui")) {
+                            System.out.print("Nom du participant : ");
+                            String nom = scanner.nextLine().trim();
+                            if (!nom.isEmpty()) {
+                                nomsParticipants.add(nom);
+                            }
+                        }
+
+                        ParticipantsDescription participants;
+
+                        if (nomsParticipants.isEmpty()) {
+                            participants = new AucunParticipant();
+                        } else {
+                            participants = new Participants(nomsParticipants);
                         }
 
 
                         calendar.ajouterEvent(new Reunion(
                                         new TitreEvenement(titre2),
-                                        utilisateur,
+                                        new Proprietaire(utilisateur),
                                         new DateEvenement(LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2)),
                                         new DureeEvenement(duree2),
                                         new LieuEvenement(lieu),
-                                        new Participants(participants)
+                                        (Participants) participants
                                 )
                         );
 
@@ -252,10 +264,11 @@ public class Main {
 
                         calendar.ajouterEvent(new EvenementPeriodique(
                                 new TitreEvenement(titre3),
-                                utilisateur,
+                                new Proprietaire(utilisateur),
                                 new DateEvenement(LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3)),
                                 new DureeEvenement(duree3),
-                                frequence
+                                new FrequenceEvenement(frequence)
+
                         ));
 
                         System.out.println("Événement ajouté.");

@@ -18,29 +18,13 @@ public class CalendarManager {
 
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        List<Event> result = new ArrayList<>();
-        for (Event e : events) {
-            if (e instanceof EvenementPeriodique eventPeriodique) {
-                LocalDateTime temp = eventPeriodique.getDateDebut().valeur();
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        // On ajoute une **nouvelle instance** de l'événement avec la date ajustée
-                        result.add(new EvenementPeriodique(
-                                eventPeriodique.getTitle(),
-                                eventPeriodique.getProprietaire(),
-                                new DateEvenement(temp),
-                                eventPeriodique.getDureeMinutes(),
-                                eventPeriodique.frequenceJours()
-                        ));
-                    }
-                    temp = temp.plusDays(eventPeriodique.frequenceJours());
-                }
-            } else if (!e.getDateDebut().valeur().isBefore(debut) && !e.getDateDebut().valeur().isAfter(fin)) {
-                result.add(e);
-            }
+        List<Event> resultats = new ArrayList<>();
+        for (Event event : events) {
+            resultats.addAll(event.instancesDansIntervalle(debut, fin));
         }
-        return result;
+        return resultats;
     }
+
 
 //
 //
@@ -58,9 +42,9 @@ public class CalendarManager {
 //        return false;
 //    }
 
-    public void afficherEvenements() {
-        for (Event e : events) {
-            System.out.println(e.description());
+        public void afficherEvenements() {
+            for (Event e : events) {
+                System.out.println(e.description());
+            }
         }
     }
-}
